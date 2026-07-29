@@ -1,6 +1,5 @@
 package com.login.demo.service;
 
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,32 +9,15 @@ import com.login.demo.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-
-
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-
-
     private final UserRepository userRepository;
 
-
-
     @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+        public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-
-        return userRepository
-                .findByEmail(email)
-
-                .orElseThrow(
-                        () -> new UsernameNotFoundException(
-                                "Usuario no encontrado con email: " + email
-                        )
-                );
-
+                return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
     }
-
 }

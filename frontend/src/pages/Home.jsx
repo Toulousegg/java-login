@@ -1,73 +1,51 @@
 import { useNavigate } from "react-router-dom";
-
 import useAuth from "../hooks/useAuth";
 
-
-
 function Home() {
-
-
     const navigate = useNavigate();
-
-
-    const { logout } = useAuth();
-
-
-
-
+    const { logout, role } = useAuth();
 
     const handleLogout = () => {
-
-
         logout();
-
-
         navigate("/login");
-
-
     };
 
-
-
-
-
-
-
     return (
+        <div className="page">
+            <div className="card">
+                <h1>Bem-vindo!</h1>
 
-        <div>
+                <p className="subtitle">
+                    Sistema de autenticação funcionando corretamente.
+                </p>
 
+                <div className="actions">
+                    <button
+                        className="btn"
+                        onClick={() => navigate("/change-password")}
+                    >
+                        Alterar senha
+                    </button>
 
-            <h1>
-                Hola Mundo
-            </h1>
+                    {role === "ADMIN" && (
+                        <button
+                            className="btn"
+                            onClick={() => navigate("/admin/users")}
+                        >
+                            Administração
+                        </button>
+                    )}
 
-
-
-            <p>
-                Bienvenido al sistema de autenticación.
-            </p>
-
-
-
-
-
-            <button
-                onClick={handleLogout}
-            >
-
-                Cerrar sesión
-
-            </button>
-
-
-
+                    <button
+                        className="btn btn-danger"
+                        onClick={handleLogout}
+                    >
+                        Sair
+                    </button>
+                </div>
+            </div>
         </div>
-
     );
-
 }
-
-
 
 export default Home;

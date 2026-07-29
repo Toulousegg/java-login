@@ -73,16 +73,11 @@ api.interceptors.response.use(
 
 
             if (error.response.status === 403) {
-
                 console.log(
                     "No tienes permisos para acceder"
                 );
-
             }
-
         }
-
-
         return Promise.reject(error);
 
     }

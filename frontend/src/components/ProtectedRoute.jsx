@@ -1,31 +1,33 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-import { useAuth } from "../context/AuthContext";
-
-
-
-function ProtectedRoute() {
-
-
-    const { isAuthenticated } = useAuth();
+import useAuth from "../hooks/useAuth";
 
 
 
-    if (!isAuthenticated()) {
+function ProtectedRoute({ children }) {
 
+
+    const { token } = useAuth();
+
+
+
+    if (!token) {
 
         return (
+
             <Navigate
                 to="/login"
                 replace
             />
+
         );
 
     }
 
 
 
-    return <Outlet />;
+    return children;
+
 
 }
 

@@ -16,29 +16,18 @@ import com.login.demo.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
 
-
-
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
 
-
-
     private final AdminService adminService;
-
-
-
-
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
 
-
-        return ResponseEntity.ok(
-                adminService.getAllUsers()
-        );
+        return ResponseEntity.ok(adminService.getAllUsers());
 
     }
 
@@ -50,19 +39,11 @@ public class AdminController {
 
     @DeleteMapping("/users/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> deleteUser(
-            @PathVariable Long id
-    ) {
-
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 
         adminService.deleteUser(id);
 
-
-        return ResponseEntity.ok(
-                "Usuario eliminado correctamente"
-        );
+        return ResponseEntity.ok("Usuario eliminado correctamente");
 
     }
-
-
 }

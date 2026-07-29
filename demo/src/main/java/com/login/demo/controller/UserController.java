@@ -13,37 +13,18 @@ import com.login.demo.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-
-
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
+        private final UserService userService;
 
+        @PutMapping("/change-password")
+        public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request,Authentication authentication) {
 
-    private final UserService userService;
+        userService.changePassword(request,authentication);
 
-
-
-
-    @PutMapping("/change-password")
-    public ResponseEntity<String> changePassword(
-            @RequestBody ChangePasswordRequest request,
-            Authentication authentication
-    ) {
-
-
-        userService.changePassword(
-                request,
-                authentication
-        );
-
-
-        return ResponseEntity.ok(
-                "Contraseña actualizada correctamente"
-        );
-
+                return ResponseEntity.ok("Senha atualizada corretamente");
     }
-
 }

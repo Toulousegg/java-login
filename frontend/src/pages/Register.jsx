@@ -1,389 +1,138 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/authService";
 
-
-
 function Register() {
-
-
     const navigate = useNavigate();
 
-
-
     const [formData, setFormData] = useState({
-
         name: "",
-
         email: "",
-
         cpf: "",
-
         password: "",
-
         role: "USER"
-
     });
 
-
-
     const [message, setMessage] = useState("");
-
     const [error, setError] = useState("");
-
     const [loading, setLoading] = useState(false);
 
-
-
-
-
-
-
     const handleChange = (e) => {
-
-
         setFormData({
-
             ...formData,
-
             [e.target.name]: e.target.value
-
         });
-
-
     };
-
-
-
-
-
-
 
     const handleSubmit = async (e) => {
-
-
         e.preventDefault();
 
-
         setMessage("");
-
         setError("");
-
         setLoading(true);
 
-
-
         try {
+            await authService.register(formData);
 
-
-            await authService.register(
-                formData
-            );
-
-
-
-            setMessage(
-                "Usuario creado correctamente"
-            );
-
-
+            setMessage("Usuário criado com sucesso!");
 
             setTimeout(() => {
-
                 navigate("/login");
-
             }, 1500);
 
-
-
-
         } catch (error) {
-
-
-            setError(
-                "No fue posible crear el usuario. Verifica los datos."
-            );
-
-
+            setError("Não foi possível criar o usuário. Verifique os dados.");
         } finally {
-
-
             setLoading(false);
-
-
         }
-
-
     };
 
-
-
-
-
-
-
-
-
     return (
+        <div className="container">
+            <div className="card">
+                <h1>Criar conta</h1>
+                <p className="subtitle">Cadastre um novo usuário</p>
 
-        <div>
+                {message && <div className="message success">{message}</div>}
+                {error && <div className="message error">{error}</div>}
 
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>Nome</label>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Digite seu nome"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-            <h1>
-                Registro de usuario
-            </h1>
+                    <div className="form-group">
+                        <label>E-mail</label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Digite seu e-mail"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
+                    <div className="form-group">
+                        <label>CPF</label>
+                        <input
+                            type="text"
+                            name="cpf"
+                            placeholder="Digite seu CPF"
+                            value={formData.cpf}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
+                    <div className="form-group">
+                        <label>Senha</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Digite sua senha"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-            <form
-                onSubmit={handleSubmit}
-            >
+                    <div className="form-group">
+                        <label>Perfil</label>
+                        <select
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                        >
+                            <option value="USER">
+                                Usuário
+                            </option>
 
+                            <option value="ADMIN">
+                                Administrador
+                            </option>
+                        </select>
+                    </div>
 
+                    <button className="btn" type="submit" disabled={loading}>
+                        {loading ? "Criando..." : "Cadastrar"}
+                    </button>
+                </form>
 
-
-
-                <div>
-
-                    <label>
-                        Nombre
-                    </label>
-
-
-                    <input
-
-                        type="text"
-
-                        name="name"
-
-                        value={formData.name}
-
-                        onChange={handleChange}
-
-                        required
-
-                    />
-
+                <div className="footer">
+                    Já possui uma conta? <Link to="/login">Entrar</Link>
                 </div>
-
-
-
-
-
-
-
-
-                <div>
-
-                    <label>
-                        Email
-                    </label>
-
-
-                    <input
-
-                        type="email"
-
-                        name="email"
-
-                        value={formData.email}
-
-                        onChange={handleChange}
-
-                        required
-
-                    />
-
-                </div>
-
-
-
-
-
-
-
-
-                <div>
-
-                    <label>
-                        CPF
-                    </label>
-
-
-                    <input
-
-                        type="text"
-
-                        name="cpf"
-
-                        value={formData.cpf}
-
-                        onChange={handleChange}
-
-                        required
-
-                    />
-
-                </div>
-
-
-
-
-
-
-
-
-                <div>
-
-                    <label>
-                        Contraseña
-                    </label>
-
-
-                    <input
-
-                        type="password"
-
-                        name="password"
-
-                        value={formData.password}
-
-                        onChange={handleChange}
-
-                        required
-
-                    />
-
-                </div>
-
-
-
-
-
-
-
-
-                <div>
-
-                    <label>
-                        Perfil
-                    </label>
-
-
-                    <select
-
-                        name="role"
-
-                        value={formData.role}
-
-                        onChange={handleChange}
-
-                    >
-
-
-                        <option value="USER">
-                            Usuario
-                        </option>
-
-
-                        <option value="ADMIN">
-                            Administrador
-                        </option>
-
-
-                    </select>
-
-
-                </div>
-
-
-
-
-
-
-
-
-                {
-                    message && (
-
-                        <p>
-                            {message}
-                        </p>
-
-                    )
-                }
-
-
-
-
-
-
-                {
-                    error && (
-
-                        <p>
-                            {error}
-                        </p>
-
-                    )
-                }
-
-
-
-
-
-
-
-
-
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-
-                    {
-                        loading
-                        ? "Creando..."
-                        : "Registrar"
-                    }
-
-
-                </button>
-
-
-
-            </form>
-
-
-
-
-
-
-
-
-            <p>
-
-                ¿Ya tienes cuenta?
-
-
-                <Link to="/login">
-
-                    Iniciar sesión
-
-                </Link>
-
-
-            </p>
-
-
-
+            </div>
         </div>
-
     );
-
 }
-
-
 
 export default Register;
