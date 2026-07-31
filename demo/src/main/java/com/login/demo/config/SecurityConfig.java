@@ -37,6 +37,10 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
+                    "/",
+                    "/index.html",
+                    "/assets/**",
+                    "/favicon.ico",
                     "/auth/**",
                     "/swagger-ui/**",
                     "/v3/api-docs/**"
