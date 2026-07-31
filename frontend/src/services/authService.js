@@ -12,7 +12,7 @@ const authService = {
     },
 
     changePassword: async (passwordData) => {
-        const response = await api.put("/users/change-password", passwordData);
+        const response = await api.post("/users/change-password", passwordData);
         return response.data;
     },
 
