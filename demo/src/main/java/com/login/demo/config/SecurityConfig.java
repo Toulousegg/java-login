@@ -41,6 +41,9 @@ public class SecurityConfig {
                     "/index.html",
                     "/assets/**",
                     "/favicon.ico",
+                    "/login",
+                    "/register",
+                    "/forgot-password",
                     "/auth/**",
                     "/swagger-ui/**",
                     "/v3/api-docs/**"

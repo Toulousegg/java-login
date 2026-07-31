@@ -29,10 +29,18 @@ public class DataSeeder {
                 .role(Role.ADMIN)
                 .build();
 
-                userRepository.save(admin);
+                User user = User.builder()
+                .name("Usuario")
+                .email("usuario@teste.com")
+                .cpf("12345678999")
+                .password(passwordEncoder.encode("user123"))
+                .role(Role.USER)
+                .build();
 
-                System.out.println("Administrador creado: " + " admin@test.com / admin123"
-                );
+                userRepository.save(admin);
+                userRepository.save(user);
+
+                System.out.println("Administrador creado: " + " admin@test.com / admin123");
             }
         };
     }

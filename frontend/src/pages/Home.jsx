@@ -20,13 +20,6 @@ function Home() {
                 </p>
 
                 <div className="actions">
-                    <button
-                        className="btn"
-                        onClick={() => navigate("/change-password")}
-                    >
-                        Alterar senha
-                    </button>
-
                     {isAdmin() && (
                         <button
                             className="btn"
