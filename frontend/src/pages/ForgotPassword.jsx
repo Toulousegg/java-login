@@ -39,7 +39,7 @@ function ForgotPassword() {
         try {
 
             await axios.post(
-                "http://localhost:8080/auth/forgot-password",
+                "/auth/forgot-password",
                 formData
             );
 
