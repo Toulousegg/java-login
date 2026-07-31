@@ -1,89 +1,41 @@
 import axios from "axios";
 
-
 const api = axios.create({
-
     baseURL: "http://localhost:8080",
-
     headers: {
         "Content-Type": "application/json"
     }
-
 });
 
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token");
 
+    console.log("TOKEN ENVIADO:", token);
+    console.log(config.method?.toUpperCase(), config.url);
 
-// Interceptor para enviar JWT automáticamente
-api.interceptors.request.use(
-
-    (config) => {
-
-
-        const token = localStorage.getItem("token");
-
-
-        if (token) {
-
-            config.headers.Authorization =
-                `Bearer ${token}`;
-
-        }
-
-
-        return config;
-
-    },
-
-
-    (error) => {
-
-        return Promise.reject(error);
-
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
     }
 
-);
+    return config;
+});
 
-
-
-// Interceptor para manejar errores globales
 api.interceptors.response.use(
-
-    (response) => {
-
-        return response;
-
-    },
-
-
+    (response) => response,
     (error) => {
-
-
         if (error.response) {
-
-
             if (error.response.status === 401) {
-
-                console.log(
-                    "Sesión expirada o token inválido"
-                );
-
                 localStorage.removeItem("token");
-
+                window.location.href = "/login";
             }
-
 
             if (error.response.status === 403) {
-                console.log(
-                    "No tienes permisos para acceder"
-                );
+                console.log("Sem permissão para acessar este recurso");
             }
         }
+
         return Promise.reject(error);
-
     }
-
 );
-
-
 
 export default api;

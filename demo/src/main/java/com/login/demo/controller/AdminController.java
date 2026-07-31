@@ -31,12 +31,6 @@ public class AdminController {
 
     }
 
-
-
-
-
-
-
     @DeleteMapping("/users/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {

@@ -1,77 +1,49 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
 import ChangePassword from "../pages/ChangePassword";
+import ForgotPassword from "../pages/ForgotPassword";
 import AdminUsers from "../pages/AdminUsers";
-
 import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes() {
-
     return (
-
         <BrowserRouter>
-
             <Routes>
-
-                {/* Página inicial */}
-                <Route
-                    path="/"
-                    element={<Navigate to="/login" replace />}
-                />
-
-                {/* Públicas */}
-                <Route
-                    path="/login"
-                    element={<Login />}
-                />
-
-                <Route
-                    path="/register"
-                    element={<Register />}
-                />
-
-                {/* Privadas */}
-                <Route
-                    path="/home"
+                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/home"
                     element={
                         <ProtectedRoute>
                             <Home />
                         </ProtectedRoute>
-                    }
+                        }
                 />
 
-                <Route
-                    path="/change-password"
+                <Route path="/change-password"
                     element={
                         <ProtectedRoute>
                             <ChangePassword />
                         </ProtectedRoute>
-                    }
+                        }
                 />
 
-                <Route
-                    path="/admin/users"
+                <Route path="/admin/users"
                     element={
                         <ProtectedRoute>
                             <AdminUsers />
                         </ProtectedRoute>
-                    }
+                        }
                 />
 
-                <Route
-                    path="*"
-                    element={<Navigate to="/login" replace />}
-                />
+                <Route path="*" element={<Navigate to="/login" replace />} />
 
             </Routes>
-
         </BrowserRouter>
-
     );
-
 }
 
 export default AppRoutes;

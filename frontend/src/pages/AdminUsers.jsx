@@ -52,11 +52,6 @@ function AdminUsers() {
 
     return (
         <div className="page">
-            <h1>Administração de usuários</h1>
-
-            <p>
-                Gerencie os usuários cadastrados no sistema.
-            </p>
 
             {error && (
                 <div className="message error">

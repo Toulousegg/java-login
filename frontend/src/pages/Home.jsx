@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 
 function Home() {
     const navigate = useNavigate();
-    const { logout, role } = useAuth();
+    const { logout, isAdmin } = useAuth();
 
     const handleLogout = () => {
         logout();
@@ -13,7 +13,7 @@ function Home() {
     return (
         <div className="page">
             <div className="card">
-                <h1>Bem-vindo!</h1>
+                <h1>Hello World!</h1>
 
                 <p className="subtitle">
                     Sistema de autenticação funcionando corretamente.
@@ -27,7 +27,7 @@ function Home() {
                         Alterar senha
                     </button>
 
-                    {role === "ADMIN" && (
+                    {isAdmin() && (
                         <button
                             className="btn"
                             onClick={() => navigate("/admin/users")}

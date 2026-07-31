@@ -30,6 +30,7 @@ function Login() {
         try {
             const response = await authService.login(formData);
             login(response.token, response.role);
+            console.log(response);
             navigate("/home");
         } catch (error) {
             setError("E-mail ou senha inválidos.");
@@ -78,6 +79,9 @@ function Login() {
 
                 <div className="footer">
                     Não possui uma conta? <Link to="/register">Cadastre-se</Link>
+                </div>
+                <div className="footer">
+                    Esqueceu a senha? <Link to="/forgot-password">Redifina</Link>
                 </div>
             </div>
         </div>
