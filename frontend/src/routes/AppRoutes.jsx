@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
-import ChangePassword from "../pages/ChangePassword";
 import ForgotPassword from "../pages/ForgotPassword";
 import AdminUsers from "../pages/AdminUsers";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -23,13 +22,6 @@ function AppRoutes() {
                         }
                 />
 
-                <Route path="/change-password"
-                    element={
-                        <ProtectedRoute>
-                            <ChangePassword />
-                        </ProtectedRoute>
-                        }
-                />
 
                 <Route path="/admin/users"
                     element={

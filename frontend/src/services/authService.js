@@ -11,11 +11,6 @@ const authService = {
         return response.data;
     },
 
-    changePassword: async (passwordData) => {
-        const response = await api.post("/users/change-password", passwordData);
-        return response.data;
-    },
-
     getUsers: async () => {
         const response = await api.get("/admin/users");
         return response.data;
