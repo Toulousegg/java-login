@@ -16,10 +16,6 @@ function Navbar() {
                 Home
             </Link>
 
-            <Link to="/change-password">
-                Cambiar contraseña
-            </Link>
-
             {isAdmin() && (
                 <Link to="/admin/users">
                     Usuarios
